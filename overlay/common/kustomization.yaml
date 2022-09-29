@@ -1,0 +1,34 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: cert-manager
+
+resources:
+- ../../base
+- clusterissuers/house.yaml
+- clusterissuers/in-cluster.yaml
+
+patches:
+  - patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: cert-manager
+        namespace: cert-manager
+      spec:
+        template:
+          spec:
+            containers:
+              - name: cert-manager
+                volumeMounts:
+                  - name: cacerts
+                    mountPath: /etc/ssl/certs/house_ca_root.pem
+                    subPath: house_ca_root.pem
+            volumes:
+              - name: cacerts
+                configMap:
+                  name: house-ca-cert
+
+configMapGenerator:
+  - name: house-ca-cert
+    files:
+      - house_ca_root.pem=certs/root_ca.crt
