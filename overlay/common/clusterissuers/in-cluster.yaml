@@ -4,7 +4,7 @@ metadata:
   name: in-cluster
 spec:
   acme:
-    server: https://step-certificates.step-ca.svc.cluster.local/acme/acme/directory
+    server: https://step-certificates.step-certificates.svc.cluster.local/acme/acme/directory
     privateKeySecretRef:
       name: in-cluster-issuer-account-key
     solvers:
