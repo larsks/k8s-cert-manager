@@ -4,7 +4,7 @@ namespace: cert-manager
 
 resources:
 - ../../base
-- clusterissuers/in-cluster.yaml
+- clusterissuers/house-internal.yaml
 
 configMapGenerator:
   - name: house-ca-cert
