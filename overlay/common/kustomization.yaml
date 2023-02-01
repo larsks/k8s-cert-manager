@@ -1,15 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: cert-manager
 
 resources:
 - ../../base
-- clusterissuers/house-internal.yaml
-
-configMapGenerator:
-  - name: house-ca-cert
-    files:
-      - house_ca_root.pem=certs/root_ca.crt
+- config
 
 patches:
   - path: deployments/cert-manager_patch.yaml
